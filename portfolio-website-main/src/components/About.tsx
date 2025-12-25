@@ -14,6 +14,7 @@ import {
   Robot,
   ChartLine,
 } from "phosphor-react";
+import { Camera, Network } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,16 +26,17 @@ const About = () => {
 
   // 🧠 Your AI/ML Skill Stack
   const skills = [
-    { icon: Brain, name: "Machine Learning", level: 92 },
-    { icon: Cpu, name: "Deep Learning (Keras/TensorFlow)", level: 90 },
-    { icon: Robot, name: "Computer Vision", level: 88 },
-    { icon: Lightning, name: "NLP / Transformers", level: 86 },
-    { icon: Code, name: "Python / FastAPI / Flask", level: 90 },
-    { icon: Database, name: "SQL / MongoDB", level: 84 },
-    { icon: ChartLine, name: "Data Analysis / EDA", level: 87 },
-    { icon: Cloud, name: "Model Deployment / Streamlit", level: 83 },
-    { icon: Cube, name: "LangChain / RAG", level: 80 },
-    { icon: Gear, name: "Model Optimization / AutoML", level: 78 },
+    { icon: Code, name: "Python / FastAPI / Flask", level: 83 },
+    { icon: Brain, name: "Machine Learning", level: 90 },
+    { icon: Network, name: "Deep Learning (Keras/TensorFlow)", level: 88 },
+    { icon: Camera, name: "Computer Vision", level: 86 },
+    { icon: Lightning, name: "NLP / Transformers", level: 84 },
+    { icon: Cube, name: "LangChain / RAG / VectorDB", level: 72 },
+    { icon: Robot, name: "AI Agents", level: 60 },
+    { icon: Database, name: "SQL / MongoDB", level: 75 },
+    { icon: ChartLine, name: "Data Analysis / EDA", level: 80 },
+    { icon: Cloud, name: "Model Deployment / Streamlit", level: 78 },
+    { icon: Gear, name: "Model Optimization / AutoML", level: 76 },
     { icon: GitBranch, name: "Git / GitHub", level: 91 },
   ];
 
@@ -106,7 +108,7 @@ const About = () => {
               </div>
 
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary/30 rounded-full animate-float" />
-              <div 
+              <div
                 className="absolute -bottom-6 -left-6 w-12 h-12 bg-accent/20 rounded-full animate-float"
                 style={{ animationDelay: "1s" }}
               />
@@ -124,11 +126,7 @@ const About = () => {
 
             <p className="text-lg text-muted-foreground leading-relaxed">
               I’m an AI & Machine Learning Engineer passionate about building intelligent, data-driven applications that bridge research and real-world impact.
-              I specialize in Computer Vision, NLP, and LLM-based systems using TensorFlow, Keras, and Hugging Face.
-            </p>
-
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              I’ve built projects like HematoVision — a deep-learning pipeline for blood-cell classification, and TeleMedicine-Pro — a secure healthcare platform integrating real-time consults and remote monitoring.
+              I specialize in Machine Learning, NLP, and LLM-based systems using TensorFlow, Keras, and Hugging Face.
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed">

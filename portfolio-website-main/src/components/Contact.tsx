@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PaperPlaneTilt, GithubLogo, LinkedinLogo, Envelope, Phone, MapPin } from 'phosphor-react';
+import { PaperPlaneTilt, GithubLogo, LinkedinLogo, Envelope, Phone, MapPin, TwitterLogo } from 'phosphor-react';
+import { useToast } from '../hooks/use-toast';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
+  const { toast } = useToast();
   const sectionRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
@@ -59,7 +61,7 @@ const Contact = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const button = e.currentTarget.querySelector('button[type="submit"]');
@@ -73,10 +75,33 @@ const Contact = () => {
       });
     }
 
-    console.log('Form submitted:', formData);
+    try {
+      const response = await fetch('http://localhost:8083/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setFormData({ name: '', email: '', message: '' });
+      if (response.ok) {
+        toast({
+          title: "Success!",
+          description: "Message sent successfully!",
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      toast({
+        title: "Error!",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
@@ -181,6 +206,9 @@ const Contact = () => {
                 </a>
                 <a href="https://www.linkedin.com/in/siva-venkata-bhanu-prakash/" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
                   <LinkedinLogo size={20} className="text-secondary-foreground" />
+                </a>
+                <a href="https://x.com/Sivabhanu7198" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
+                  <TwitterLogo size={20} className="text-secondary-foreground" />
                 </a>
               </div>
             </div>

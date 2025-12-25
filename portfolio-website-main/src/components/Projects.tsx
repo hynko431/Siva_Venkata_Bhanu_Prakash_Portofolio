@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, GithubLogo, Globe } from 'phosphor-react';
@@ -14,6 +14,36 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
+      title: "Agentic MedicalReport Analysis",
+      description: "AI-powered system that uses multi-agent LLMs and RAG to analyze medical reports, generate diagnostic insights, and support context-aware Q&A through a streamlined Streamlit interface.",
+      image: "/Images/Agentic-MedicalReport-Analysis.png",
+      tech: ["Python", "RAG", "Streamlit", "LangChain", "LangGraph", "FAISS", "Pydantic", "Pathlib & Dotenv", "HuggingFace Embeddings"],
+      liveUrl: "https://ai-agentic-medicalreport-analysis.streamlit.app/",
+      githubUrl: "https://github.com/hynko431/Agentic-MedicalReport-Analysis"
+    },
+
+    {
+      id: 2,
+      title: "MSME Agent-A-Thon",
+      description: "An agentic “Pocket CEO” platform for MSMEs that delivers financial insights and recommendations using multi-agent AI workflows, API integrations, and automated decision support.",
+      image: "/Images/MSME Agent-A-Thon.png",
+      tech: ["Python", "LangChain", "LLMs", "FastAPI", "Flask", "A2A Protocol", "React", "HTML", "CSS", "JavaScript", "Tailwind CSS"],
+      liveUrl: "https://agent-a-thon.vercel.app/",
+      githubUrl: "https://github.com/hynko431/Agent-A-Thon/"
+    },
+
+    {
+      id: 3,
+      title: "Conversational AI Avatar",
+      description: "Built a Conversational AI avatar that enables human-like interactions, showcasing intelligent digital interfaces for virtual assistants, education, and immersive AI platforms.",
+      image: "/Images/Conversational AI Avatar.png",
+      tech: ["Python", "Speech-to-Text (ASR)", "Text-to-Speech (TTS)", "ZEP - Brain", "Anam AI-3D avatar", "React", "HTML", "CSS", "JavaScript", "FastAPI", "Flask"],
+      liveUrl: "https://conversational-ai-avatar-demo.streamlit.app/",
+      githubUrl: "https://github.com/hynko431/Conversational-AI-Avatar"
+    },
+
+    {
+      id: 4,
       title: "Tele Medicine Pro",
       description: "End-to-end Tele-Medicine platform supporting video/phone consults, secure messaging, triage & scheduling, and remote vitals. Implemented RBAC, encryption, and audit logging to protect patient data.",
       image: "/Images/Tele-Medicine-Pro.png",
@@ -23,7 +53,7 @@ const Projects = () => {
     },
 
     {
-      id: 2,
+      id: 5,
       title: "HematoVision — Blood Cell Classification",
       description: "Transfer-learning pipeline (MobileNetV2) for blood-cell classification on ~12.5k augmented images. Packaged model and served via a Flask inference API.",
       image: "/Images/HeatmatoVision.jpg",
@@ -31,15 +61,7 @@ const Projects = () => {
       liveUrl: "",
       githubUrl: "https://github.com/hynko431/HematoVision-Advanced-Blood-Cell-Classification-Using-Transfer-Learning"
     },
-    {
-      id: 3,
-      title: "News Analyzer",
-      description: "NLP pipeline for ingesting/analyzing news with scraping fallback, multi-endpoint API and Streamlit dashboard with bilingual TTS and visualizations.",
-      image: "/Images/News-Analyzer.png",
-      tech: ["Scraping", "DistilBERT", "BART", "spaCy", "Streamlit"],
-      liveUrl: "",
-      githubUrl: "https://github.com/hynko431/News_Analyzer"
-    }
+
 
   ];
 
@@ -108,7 +130,7 @@ const Projects = () => {
           </h2>
           <div className="w-20 h-1 bg-gradient-primary rounded-full mx-auto mb-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A curated collection of full stack projects demonstrating my expertise in building modern, scalable web applications — from intuitive frontends to robust backend systems.          </p>
+            A curated collection of AI & ML projects demonstrating my expertise in building modern, scalable web applications — from intuitive frontends to robust backend systems.          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -145,7 +167,7 @@ const Projects = () => {
                   ))}
                 </div>
 
-                <a href={project.githubUrl}  className="inline-flex items-center gap-2 text-primary-glow hover:text-primary transition-colors duration-300 group/link">
+                <a href={project.githubUrl} className="inline-flex items-center gap-2 text-primary-glow hover:text-primary transition-colors duration-300 group/link">
                   View Project
                   <ArrowUpRight size={16} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform duration-300" />
                 </a>
@@ -154,14 +176,14 @@ const Projects = () => {
           ))}
         </div>
 
-        { <div className="text-center mt-12">
+        {<div className="text-center mt-12">
           <button
-          type="button"
-          onClick={() => window.open("https://github.com/hynko431?tab=repositories", "_blank", "noopener,noreferrer")}
-          className="px-8 py-3 bg-gradient-secondary text-secondary-foreground rounded-lg hover:shadow-glow-secondary transition-all duration-300 hover:scale-105">
-          View All Projects
+            type="button"
+            onClick={() => window.open("https://github.com/hynko431?tab=repositories", "_blank", "noopener,noreferrer")}
+            className="px-8 py-3 bg-gradient-secondary text-secondary-foreground rounded-lg hover:shadow-glow-secondary transition-all duration-300 hover:scale-105">
+            View All Projects
           </button>
-        </div> }
+        </div>}
       </div>
 
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl -translate-x-1/2" />

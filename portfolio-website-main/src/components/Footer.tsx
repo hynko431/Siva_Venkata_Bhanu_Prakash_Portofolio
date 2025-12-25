@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { GithubLogo, LinkedinLogo, Heart } from 'phosphor-react';
+import { GithubLogo, LinkedinLogo, TwitterLogo } from 'phosphor-react';
 import { ArrowLeft, ArrowUp, ArrowUpToLine } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -80,6 +80,9 @@ const Footer = () => {
               <a href="https://www.linkedin.com/in/siva-venkata-bhanu-prakash/" className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
                 <LinkedinLogo size={18} className="text-secondary-foreground" />
               </a>
+              <a href="https://x.com/Sivabhanu7198" className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
+                <TwitterLogo size={18} className="text-secondary-foreground" />
+              </a>
             </div>
           </div>
 
@@ -128,7 +131,7 @@ const Footer = () => {
           </div> */}
 
           <button onClick={scrollToTop} className="px-4 py-2 gap-2 flex items-center bg-gradient-primary text-primary-foreground rounded-lg hover:shadow-glow-primary transition-all duration-300 hover:scale-105 text-sm">
-            Back to Top <ArrowUp size={18}/>
+            Back to Top <ArrowUp size={18} />
           </button>
         </div>
       </div>

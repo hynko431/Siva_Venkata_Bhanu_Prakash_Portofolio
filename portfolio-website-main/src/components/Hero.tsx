@@ -159,8 +159,8 @@ const Hero: React.FC<HeroProps> = ({
       </div>
 
       <div ref={orbRef1} className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-xl animate-pulse" />
-  <div ref={orbRef2} className="absolute top-1/3 right-1/3 w-24 h-24 bg-secondary/20 rounded-full blur-xl animate-pulse" />
-  <div ref={orbRef3} className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-accent/20 rounded-full blur-xl animate-pulse" />
+      <div ref={orbRef2} className="absolute top-1/3 right-1/3 w-24 h-24 bg-secondary/20 rounded-full blur-xl animate-pulse" />
+      <div ref={orbRef3} className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-accent/20 rounded-full blur-xl animate-pulse" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <h1 ref={titleRef} className="text-4xl md:text-6xl lg:text-7xl font-light text-foreground mb-6 leading-tight">
@@ -187,7 +187,7 @@ const Hero: React.FC<HeroProps> = ({
 
           <Button onClick={scrollToProjects} variant="ghost" aria-label="View my work - scroll to projects" className="group inline-flex items-center gap-3 px-8 py-4 text-foreground hover:bg-primary/10 rounded-lg font-medium transition-all duration-300 hover:scale-105" size="lg">
             View My Work
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300"/>
+            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
           </Button>
         </div>
       </div>

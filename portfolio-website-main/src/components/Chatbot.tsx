@@ -10,30 +10,18 @@ type Msg = {
   timestamp: Date;
 };
 
-const questions = [
-  "Hi! What's your name?",
-  "Nice to meet you! What's your current role (student / dev / designer / other)?",
-  "What are your top 2–3 skills or interests?",
-  "Would you like to share a link to your portfolio or GitHub?",
-  "Thanks! Anything else you'd like me to know or ask?"
-];
-
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Msg[]>([
     {
-      id: String(Date.now()) + "-init",
-      text: "Hi! I'm AI assistant. How can I help you today?",
+      id: "init-1",
+      text: "Hi! I'm Siva's AI assistant. Ask me anything about his projects, skills, or experience.",
       isBot: true,
       timestamp: new Date()
     }
   ]);
-
-  // track which question in the predefined flow we're on
-  const [questionIndex, setQuestionIndex] = useState<number | null>(null);
-  // store answers (optional)
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [isTyping, setIsTyping] = useState(false);
 
   const chatboxRef = useRef<HTMLDivElement | null>(null);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
@@ -64,27 +52,14 @@ const Chatbot: React.FC = () => {
   useEffect(() => {
     const el = messagesContainerRef.current;
     if (el) {
-      // small timeout to allow DOM update
       setTimeout(() => {
         el.scrollTop = el.scrollHeight;
       }, 50);
     }
-  }, [messages]);
-
-  const openAndStartQuestions = () => {
-    setIsOpen(true);
-    // start the question flow if not started
-    if (questionIndex === null) {
-      // push first question after a short delay so the user sees the initial greeting first
-      setTimeout(() => {
-        askQuestion(0);
-      }, 500);
-    }
-  };
+  }, [messages, isTyping]);
 
   const toggleChat = () => {
     if (isOpen) {
-      // close with animation then setIsOpen(false)
       if (chatboxRef.current) {
         gsap.to(chatboxRef.current, {
           opacity: 0,
@@ -97,97 +72,80 @@ const Chatbot: React.FC = () => {
         setIsOpen(false);
       }
     } else {
-      openAndStartQuestions();
+      setIsOpen(true);
     }
   };
 
-  // Helper to create a unique id
   const makeId = (prefix = "") => prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 
-  // push a bot question by index
-  const askQuestion = (idx: number) => {
-    if (idx < 0 || idx >= questions.length) return;
-    const botMsg: Msg = {
-      id: makeId("bot-"),
-      text: questions[idx],
-      isBot: true,
-      timestamp: new Date()
-    };
-    setMessages((prev) => [...prev, botMsg]);
-    setQuestionIndex(idx);
-  };
-
-  // The main send handler
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     const trimmed = message.trim();
     if (!trimmed) return;
 
-    // capture user's message now (fixes closure issues)
-    const userMessageText = trimmed;
-
     const userMsg: Msg = {
       id: makeId("user-"),
-      text: userMessageText,
+      text: trimmed,
       isBot: false,
       timestamp: new Date()
     };
 
-    // append user message
     setMessages((prev) => [...prev, userMsg]);
     setMessage("");
+    setIsTyping(true);
 
-    // If we're in a guided question flow, record the answer and ask the next question
-    if (questionIndex !== null && questionIndex < questions.length) {
-      const questionKey = `q${questionIndex}`;
-      setAnswers((prev) => ({ ...prev, [questionKey]: userMessageText }));
+    try {
+      // Prepare history for context (last 10 messages)
+      const history = messages.slice(-10).map(m => ({
+        role: m.isBot ? "assistant" : "user",
+        content: m.text
+      }));
 
-      // ask next question (or finish)
-      const nextIdx = questionIndex + 1;
-      setTimeout(() => {
-        if (nextIdx < questions.length) {
-          askQuestion(nextIdx);
-        } else {
-          // final acknowledgement
-          const botMsg: Msg = {
-            id: makeId("bot-"),
-            text: "Thanks for sharing — I've noted it. How else can I help?",
-            isBot: true,
-            timestamp: new Date()
-          };
-          setMessages((prev) => [...prev, botMsg]);
-          // keep questionIndex set to questions.length to indicate finished flow
-          setQuestionIndex(nextIdx);
-        }
-      }, 800);
+      const response = await fetch("http://localhost:8083/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: trimmed, history })
+      });
 
-      return;
-    }
+      if (!response.ok) throw new Error("Network response was not ok");
 
-    // Otherwise, fallback / keyword-based quick replies (non-guided)
-    setTimeout(() => {
-      const userLower = userMessageText.toLowerCase();
-      let reply = "Sorry, I didn't understand that. Can you rephrase it?";
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error("No reader available");
 
-      if (userLower.includes("services")) {
-        reply = "I offer help with frontend, backend, animations, and AI integration. Want a portfolio link?";
-      } else if (userLower.includes("contact") || userLower.includes("email")) {
-        reply = "You can contact via the contact form or email codezenithhq@gmail.com";
-      } else if (userLower.includes("react") || userLower.includes("gsap")) {
-        reply = "Yes — I can help with React + GSAP UI work (components, animations, transitions).";
-      } else if (userLower.includes("project")) {
-        reply = "Tell me about your project: what's the goal and the stack you're thinking of?";
-      } else if (userLower.includes("hi") || userLower.includes("hello") || userLower.includes("hey")) {
-        reply = "Hey! What would you like to talk about — projects, skills, or portfolio?";
-      }
-
-      const botReply: Msg = {
-        id: makeId("bot-"),
-        text: reply,
+      const botMsgId = makeId("bot-");
+      // Add empty bot message to start streaming into
+      setMessages(prev => [...prev, {
+        id: botMsgId,
+        text: "",
         isBot: true,
         timestamp: new Date()
-      };
-      setMessages((prev) => [...prev, botReply]);
-    }, 700);
+      }]);
+
+      const decoder = new TextDecoder();
+      let botText = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        botText += chunk;
+
+        setMessages(prev => prev.map(m =>
+          m.id === botMsgId ? { ...m, text: botText } : m
+        ));
+      }
+
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setMessages(prev => [...prev, {
+        id: makeId("error-"),
+        text: "Sorry, I'm having trouble connecting to the server right now.",
+        isBot: true,
+        timestamp: new Date()
+      }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -232,6 +190,13 @@ const Chatbot: React.FC = () => {
                 </div>
               </div>
             ))}
+            {isTyping && (
+              <div className="flex justify-start">
+                <div className="bg-muted/20 text-foreground px-3 py-2 rounded-lg text-sm italic">
+                  Thinking...
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="p-4 border-t border-glass-border">
