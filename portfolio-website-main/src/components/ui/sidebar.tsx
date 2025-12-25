@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
@@ -127,22 +128,29 @@ const SidebarProvider = React.forwardRef<
       [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
     )
 
+    const containerRef = React.useRef<HTMLDivElement>(null)
+
+    React.useLayoutEffect(() => {
+      if (containerRef.current) {
+        containerRef.current.style.setProperty("--sidebar-width", SIDEBAR_WIDTH)
+        containerRef.current.style.setProperty("--sidebar-width-icon", SIDEBAR_WIDTH_ICON)
+      }
+    }, [])
+
     return (
       <SidebarContext.Provider value={contextValue}>
         <TooltipProvider delayDuration={0}>
           <div
-            style={
-              {
-                "--sidebar-width": SIDEBAR_WIDTH,
-                "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
-                ...style,
-              } as React.CSSProperties
-            }
             className={cn(
               "group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar",
               className
             )}
-            ref={ref}
+            ref={(node) => {
+              // @ts-expect-error - compatibility with forwardRef and local ref
+              containerRef.current = node
+              if (typeof ref === 'function') ref(node)
+              else if (ref) ref.current = node
+            }}
             {...props}
           >
             {children}
@@ -197,11 +205,11 @@ const Sidebar = React.forwardRef<
             data-sidebar="sidebar"
             data-mobile="true"
             className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
-            style={
-              {
-                "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-              } as React.CSSProperties
-            }
+            ref={(node) => {
+              if (node) {
+                node.style.setProperty("--sidebar-width", SIDEBAR_WIDTH_MOBILE)
+              }
+            }}
             side={side}
           >
             <div className="flex h-full w-full flex-col">{children}</div>
@@ -612,7 +620,7 @@ const SidebarMenuAction = React.forwardRef<
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-          "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0",
+        "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0",
         className
       )}
       {...props}

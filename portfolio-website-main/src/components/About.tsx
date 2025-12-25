@@ -26,18 +26,18 @@ const About = () => {
 
   // 🧠 Your AI/ML Skill Stack
   const skills = [
-    { icon: Code, name: "Python / FastAPI / Flask", level: 83 },
-    { icon: Brain, name: "Machine Learning", level: 90 },
-    { icon: Network, name: "Deep Learning (Keras/TensorFlow)", level: 88 },
-    { icon: Camera, name: "Computer Vision", level: 86 },
-    { icon: Lightning, name: "NLP / Transformers", level: 84 },
-    { icon: Cube, name: "LangChain / RAG / VectorDB", level: 72 },
-    { icon: Robot, name: "AI Agents", level: 60 },
-    { icon: Database, name: "SQL / MongoDB", level: 75 },
-    { icon: ChartLine, name: "Data Analysis / EDA", level: 80 },
-    { icon: Cloud, name: "Model Deployment / Streamlit", level: 78 },
-    { icon: Gear, name: "Model Optimization / AutoML", level: 76 },
-    { icon: GitBranch, name: "Git / GitHub", level: 91 },
+    { icon: Code, name: "Python / FastAPI / Flask", level: 83, width: "w-[83%]" },
+    { icon: Brain, name: "Machine Learning", level: 90, width: "w-[90%]" },
+    { icon: Network, name: "Deep Learning (Keras/TensorFlow)", level: 88, width: "w-[88%]" },
+    { icon: Camera, name: "Computer Vision", level: 86, width: "w-[86%]" },
+    { icon: Lightning, name: "NLP / Transformers", level: 84, width: "w-[84%]" },
+    { icon: Cube, name: "LangChain / RAG / VectorDB", level: 72, width: "w-[72%]" },
+    { icon: Robot, name: "AI Agents", level: 60, width: "w-[60%]" },
+    { icon: Database, name: "SQL / MongoDB", level: 75, width: "w-[75%]" },
+    { icon: ChartLine, name: "Data Analysis / EDA", level: 80, width: "w-[80%]" },
+    { icon: Cloud, name: "Model Deployment / Streamlit", level: 78, width: "w-[78%]" },
+    { icon: Gear, name: "Model Optimization / AutoML", level: 76, width: "w-[76%]" },
+    { icon: GitBranch, name: "Git / GitHub", level: 91, width: "w-[91%]" },
   ];
 
   useEffect(() => {
@@ -109,8 +109,7 @@ const About = () => {
 
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary/30 rounded-full animate-float" />
               <div
-                className="absolute -bottom-6 -left-6 w-12 h-12 bg-accent/20 rounded-full animate-float"
-                style={{ animationDelay: "1s" }}
+                className="absolute -bottom-6 -left-6 w-12 h-12 bg-accent/20 rounded-full animate-float delay-[1s]"
               />
             </div>
           </div>
@@ -176,8 +175,7 @@ const About = () => {
                   {/* Progress Bar */}
                   <div className="w-full bg-muted rounded-full h-2">
                     <div
-                      className="bg-gradient-primary h-2 rounded-full transition-all duration-1000 ease-out"
-                      style={{ width: `${skill.level}%` }}
+                      className={`bg-gradient-primary h-2 rounded-full transition-all duration-1000 ease-out ${skill.width}`}
                     />
                   </div>
 

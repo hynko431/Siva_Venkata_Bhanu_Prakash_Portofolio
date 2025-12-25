@@ -201,13 +201,13 @@ const Contact = () => {
             <div>
               <h4 className="text-lg font-medium text-foreground mb-4">Follow Me</h4>
               <div className="flex gap-4">
-                <a href="https://github.com/hynko431" className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
+                <a href="https://github.com/hynko431" className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110" aria-label="GitHub Profile">
                   <GithubLogo size={20} className="text-primary-foreground" />
                 </a>
-                <a href="https://www.linkedin.com/in/siva-venkata-bhanu-prakash/" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
+                <a href="https://www.linkedin.com/in/siva-venkata-bhanu-prakash/" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110" aria-label="LinkedIn Profile">
                   <LinkedinLogo size={20} className="text-secondary-foreground" />
                 </a>
-                <a href="https://x.com/Sivabhanu7198" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
+                <a href="https://x.com/Sivabhanu7198" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110" aria-label="Twitter Profile">
                   <TwitterLogo size={20} className="text-secondary-foreground" />
                 </a>
               </div>

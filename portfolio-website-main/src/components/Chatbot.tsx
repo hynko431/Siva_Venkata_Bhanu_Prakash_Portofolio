@@ -173,7 +173,7 @@ const Chatbot: React.FC = () => {
                   <p className="text-xs text-muted-foreground">Online</p>
                 </div>
               </div>
-              <button onClick={toggleChat} className="p-1 hover:bg-muted/20 rounded-full transition-colors">
+              <button onClick={toggleChat} className="p-1 hover:bg-muted/20 rounded-full transition-colors" aria-label="Close chat">
                 <X size={16} />
               </button>
             </div>

@@ -74,13 +74,13 @@ const Footer = () => {
               Designing smarter systems with machine learning, data, and state-of-the-art AI innovation.
             </p>
             <div className="flex gap-4">
-              <a href="https://github.com/hynko431" className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
+              <a href="https://github.com/hynko431" className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110" aria-label="GitHub Profile">
                 <GithubLogo size={18} className="text-primary-foreground" />
               </a>
-              <a href="https://www.linkedin.com/in/siva-venkata-bhanu-prakash/" className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
+              <a href="https://www.linkedin.com/in/siva-venkata-bhanu-prakash/" className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110" aria-label="LinkedIn Profile">
                 <LinkedinLogo size={18} className="text-secondary-foreground" />
               </a>
-              <a href="https://x.com/Sivabhanu7198" className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
+              <a href="https://x.com/Sivabhanu7198" className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110" aria-label="Twitter Profile">
                 <TwitterLogo size={18} className="text-secondary-foreground" />
               </a>
             </div>
