@@ -1,6 +1,7 @@
 
-# Ignore node_modules everywhere
-**/node_modules/
+node_modules/
+portfolio-website-main/node_modules/
+portfolio-website-main/server/node_modules/
 
 # Files
 *.log
@@ -8,4 +9,5 @@
 .DS_Store
 
 # Dist
-**/dist/
+dist/
+portfolio-website-main/dist/
